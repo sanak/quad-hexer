@@ -1,0 +1,7 @@
+node_modules
+dist
+dist-demo
+
+package.json
+pnpm-lock.yaml
+*.md

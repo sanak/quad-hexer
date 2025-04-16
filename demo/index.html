@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>quad-hexer demo</title>
+    <meta property="og:description" content="quad-hexer demo" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <div class="map-center-marker">+</div>
+    <div class="map-overlay top">
+      <div class="map-overlay-inner">
+        <fieldset class="inner">
+          <label for="type">Type:</label>
+          <select id="type">
+            <option value="quadkey">Quadkey</option>
+            <option value="s2-key">S2 key</option>
+            <option value="spatial-id">Spatial ID (Tilehash)</option>
+          </select>
+        </fieldset>
+        <fieldset class="inner">
+          <label for="precision">Precison:</label>
+          <select id="precision"></select>
+        </fieldset>
+        <fieldset>
+          <label for="code-value">Code value:</label>
+          <input type="text" id="code-value" readonly />
+        </fieldset>
+        <fieldset>
+          <label for="encoded-value">Encoded value:</label>
+          <input type="text" id="encoded-value" readonly />
+        </fieldset>
+        <fieldset>
+          <label for="decoded-value">Decoded value:</label>
+          <input type="text" id="decoded-value" readonly />
+        </fieldset>
+        <fieldset>
+          <label for="center-coords">Center latitude,longitude:</label>
+          <input type="text" id="center-coords" readonly />
+        </fieldset>
+      </div>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
