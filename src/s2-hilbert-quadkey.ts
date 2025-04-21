@@ -22,12 +22,12 @@ export const decodeHexS2HilbertQuadkey = (hexS2HilbertQuadkey: string): string =
   if (!hexS2HilbertQuadkey || typeof hexS2HilbertQuadkey !== 'string') {
     throw new Error('Invalid hex S2 Hilbert Quadkey type: ' + typeof hexS2HilbertQuadkey);
   }
-  const hexS2HilbertQuadkeyPattern = /^([0-5]{1})(x[0-9a-f]{0,15})(?:#([0-3]))?$/;
+  const hexS2HilbertQuadkeyPattern = /^([0-5]{1})(x[0-9a-f]{0,15}(?:#[0-3])?)$/;
   if (!hexS2HilbertQuadkeyPattern.test(hexS2HilbertQuadkey)) {
     throw new Error('Invalid hex S2 Hilbert Quadkey format: ' + hexS2HilbertQuadkey);
   }
   const matches = hexS2HilbertQuadkey.match(hexS2HilbertQuadkeyPattern)!;
-  if (!matches[1] || (!matches[2] && !matches[3])) {
+  if (!matches[1] || !matches[2]) {
     throw new Error('Invalid hex S2 Hilbert Quadkey format: ' + hexS2HilbertQuadkey);
   }
   const quadStringArray = [];
@@ -35,9 +35,6 @@ export const decodeHexS2HilbertQuadkey = (hexS2HilbertQuadkey: string): string =
   quadStringArray.push('/');
   if (matches[2]) {
     quadStringArray.push(decodeHexQuadkey(matches[2]));
-  }
-  if (matches[3]) {
-    quadStringArray.push(matches[3]);
   }
   return quadStringArray.join('');
 };

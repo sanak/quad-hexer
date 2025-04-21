@@ -7,10 +7,11 @@ import { Space } from '@reearth/spatial-id-sdk';
 import './style.css';
 import { quadHexer } from '../src/index';
 
-const precisionOptions = {
+const levelOptions = {
   quadkey: { min: 1, max: 30, default: 23 },
-  's2-key': { min: 1, max: 30, default: 21 },
-  'spatial-id': { min: 1, max: 30, default: 23 }
+  's2-hilbert-quadkey': { min: 1, max: 30, default: 21 },
+  'spatial-id-tilehash': { min: 1, max: 30, default: 23 }
+  // 'spatial-id-hilbert-tilehash': { min: 1, max: 30, default: 23 }
 };
 
 const map = new maplibregl.Map({
@@ -47,7 +48,7 @@ map.addControl(
 
 map.on('load', () => {
   // Initialize controls
-  updatePrecisionOption();
+  updateLevelOption();
 
   // Create code value polygon layer
   map.addSource('code-polygon', {
@@ -102,24 +103,24 @@ map.on('moveend', () => {
 
 // Get UI elements
 const typeSelect = document.querySelector<HTMLSelectElement>('select#type')!;
-const precisionSelect = document.querySelector<HTMLSelectElement>('select#precision')!;
+const levelSelect = document.querySelector<HTMLSelectElement>('select#level')!;
 const codeValueInput = document.querySelector<HTMLInputElement>('input#code-value')!;
 const encodedValueInput = document.querySelector<HTMLInputElement>('input#encoded-value')!;
 const decodedValueInput = document.querySelector<HTMLInputElement>('input#decoded-value')!;
 const centerCoordsInput = document.querySelector<HTMLInputElement>('input#center-coords')!;
 
-const updatePrecisionOption = () => {
+const updateLevelOption = () => {
   const type = typeSelect.value;
-  // const precision = precisionSelect.value;
-  const selectedPrecisionOptions = precisionOptions[type];
-  precisionSelect.innerHTML = '';
-  for (let i = selectedPrecisionOptions.min; i <= selectedPrecisionOptions.max; i++) {
+  // const level = levelSelect.value;
+  const selectedLevelOptions = levelOptions[type];
+  levelSelect.innerHTML = '';
+  for (let i = selectedLevelOptions.min; i <= selectedLevelOptions.max; i++) {
     const option = document.createElement('option');
     option.value = i;
     option.textContent = i;
-    precisionSelect.appendChild(option);
+    levelSelect.appendChild(option);
   }
-  precisionSelect.value = selectedPrecisionOptions.default;
+  levelSelect.value = selectedLevelOptions.default;
 };
 
 const updateCenterCoords = (lat, lng) => {
@@ -128,26 +129,33 @@ const updateCenterCoords = (lat, lng) => {
 
 const updateCodeValue = (lat, lng) => {
   const type = typeSelect.value;
-  const precision = parseInt(precisionSelect.value);
+  const level = parseInt(levelSelect.value);
   let codeValue = '';
   let encodedValue = '';
   let decodedValue = '';
   switch (type) {
     case 'quadkey':
-      codeValue = tileMath.pointToQuadkey(lng, lat, precision);
+      codeValue = tileMath.pointToQuadkey(lng, lat, level);
       encodedValue = quadHexer.encodeQuadkey(codeValue);
       decodedValue = quadHexer.decodeHexQuadkey(encodedValue);
       break;
-    case 's2-key':
-      codeValue = S2.latLngToKey(lat, lng, precision);
+    case 's2-hilbert-quadkey':
+      codeValue = S2.latLngToKey(lat, lng, level);
       encodedValue = quadHexer.encodeS2HilbertQuadkey(codeValue);
       decodedValue = quadHexer.decodeHexS2HilbertQuadkey(encodedValue);
       break;
-    case 'spatial-id':
-      codeValue = new Space({ lng: lng, lat: lat }, precision).id;
-      // encodedValue = quadHexer.encode(codeValue);
-      // decodedValue = quadHexer.decode(encodedValue);
+    case 'spatial-id-tilehash':
+      codeValue = new Space({ lng: lng, lat: lat }, level).tilehash;
+      encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
+      decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
       break;
+    /*
+    case 'spatial-id-hilbert-tilehash':
+      codeValue = new Space({ lng: lng, lat: lat }, level).hilbertTilehash;
+      encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
+      decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
+      break;
+    */
   }
   codeValueInput.value = codeValue;
   encodedValueInput.value = encodedValue;
@@ -158,9 +166,9 @@ const drawCodeAndSiblingPolygons = () => {
   const type = typeSelect.value;
   const codeValue = codeValueInput.value;
   const coordinates: number[][] = [];
-  const selectedPrecisionOptions = precisionOptions[type];
-  const precision = parseInt(precisionSelect.value);
-  const hasSiblings = precision > selectedPrecisionOptions.min;
+  const selectedLevelOptions = levelOptions[type];
+  const level = parseInt(levelSelect.value);
+  const hasSiblings = level > selectedLevelOptions.min;
   const siblingCoordinatesArray: number[][][] = [];
   const quadkeyChars = '0123';
   switch (type) {
@@ -192,7 +200,7 @@ const drawCodeAndSiblingPolygons = () => {
         }
       }
       break;
-    case 's2-key':
+    case 's2-hilbert-quadkey':
       {
         const s2cell = S2.S2Cell.FromHilbertQuadKey(codeValue);
         const corners = s2cell.getCornerLatLngs();
@@ -216,7 +224,8 @@ const drawCodeAndSiblingPolygons = () => {
         }
       }
       break;
-    case 'spatial-id':
+    case 'spatial-id-tilehash':
+      // case 'spatial-id-hilbert-tilehash':
       {
         const geoJsonCoords = new Space(codeValue).toGeoJSON().coordinates.flat();
         coordinates.push(...geoJsonCoords);
@@ -265,12 +274,12 @@ const drawCodeAndSiblingPolygons = () => {
 
 // Set event handlers
 typeSelect.addEventListener('change', () => {
-  updatePrecisionOption();
+  updateLevelOption();
   const center = map.getCenter();
   updateCodeValue(center.lat, center.lng);
   drawCodeAndSiblingPolygons();
 });
-precisionSelect.addEventListener('change', () => {
+levelSelect.addEventListener('change', () => {
   const center = map.getCenter();
   updateCodeValue(center.lat, center.lng);
   drawCodeAndSiblingPolygons();
