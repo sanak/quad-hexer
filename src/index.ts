@@ -1,5 +1,5 @@
 import { encodeQuadkey, decodeHexQuadkey } from './quadkey';
-import { encodeS2HilbertQuadkey, decodeHexS2HilbertQuadkey } from './s2-key';
+import { encodeS2HilbertQuadkey, decodeHexS2HilbertQuadkey } from './s2-hilbert-quadkey';
 import { encodeSpatialIdTilehash, decodeHexSpatialIdTilehash } from './spatial-id-tilehash';
 
 export const quadHexer = {
