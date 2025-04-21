@@ -8,9 +8,9 @@ import './style.css';
 import { quadHexer } from '../src/index';
 
 const precisionOptions = {
-  quadkey: { min: 1, max: 26, default: 23 },
-  's2-key': { min: 1, max: 30, default: 23 },
-  'spatial-id': { min: 1, max: 26, default: 23 }
+  quadkey: { min: 1, max: 30, default: 23 },
+  's2-key': { min: 1, max: 30, default: 21 },
+  'spatial-id': { min: 1, max: 30, default: 23 }
 };
 
 const map = new maplibregl.Map({
@@ -135,13 +135,13 @@ const updateCodeValue = (lat, lng) => {
   switch (type) {
     case 'quadkey':
       codeValue = tileMath.pointToQuadkey(lng, lat, precision);
-      encodedValue = quadHexer.encode(codeValue);
-      decodedValue = quadHexer.decode(encodedValue);
+      encodedValue = quadHexer.encodeQuadkey(codeValue);
+      decodedValue = quadHexer.decodeHexQuadkey(encodedValue);
       break;
     case 's2-key':
       codeValue = S2.latLngToKey(lat, lng, precision);
-      // encodedValue = quadHexer.encode(codeValue);
-      // decodedValue = quadHexer.decode(encodedValue);
+      encodedValue = quadHexer.encodeS2HilbertQuadkey(codeValue);
+      decodedValue = quadHexer.decodeHexS2HilbertQuadkey(encodedValue);
       break;
     case 'spatial-id':
       codeValue = new Space({ lng: lng, lat: lat }, precision).id;
@@ -162,6 +162,7 @@ const drawCodeAndSiblingPolygons = () => {
   const precision = parseInt(precisionSelect.value);
   const hasSiblings = precision > selectedPrecisionOptions.min;
   const siblingCoordinatesArray: number[][][] = [];
+  const quadkeyChars = '0123';
   switch (type) {
     case 'quadkey':
       {
@@ -174,7 +175,6 @@ const drawCodeAndSiblingPolygons = () => {
           [bbox.west, bbox.south]
         );
         if (hasSiblings) {
-          const quadkeyChars = '0123';
           for (let i = 0; i < quadkeyChars.length; i++) {
             const siblingCode = codeValue.slice(0, -1) + quadkeyChars[i];
             if (siblingCode === codeValue) {
@@ -187,6 +187,30 @@ const drawCodeAndSiblingPolygons = () => {
               [siblingBbox.east, siblingBbox.north],
               [siblingBbox.west, siblingBbox.north],
               [siblingBbox.west, siblingBbox.south]
+            ]);
+          }
+        }
+      }
+      break;
+    case 's2-key':
+      {
+        const s2cell = S2.S2Cell.FromHilbertQuadKey(codeValue);
+        const corners = s2cell.getCornerLatLngs();
+        coordinates.push(
+          ...corners.map((latLng) => [latLng.lng, latLng.lat]),
+          [corners[0].lng, corners[0].lat]
+        );
+        if (hasSiblings) {
+          for (let i = 0; i < quadkeyChars.length; i++) {
+            const siblingCode = codeValue.slice(0, -1) + quadkeyChars[i];
+            if (siblingCode === codeValue) {
+              continue;
+            }
+            const siblingS2cell = S2.S2Cell.FromHilbertQuadKey(siblingCode);
+            const siblingCorners = siblingS2cell.getCornerLatLngs();
+            siblingCoordinatesArray.push([
+              ...siblingCorners.map((latLng) => [latLng.lng, latLng.lat]),
+              [siblingCorners[0].lng, siblingCorners[0].lat]
             ]);
           }
         }

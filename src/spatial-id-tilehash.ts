@@ -5,7 +5,7 @@ export const encodeSpatialIdTilehash = (tilehash: string): string => {
   return tilehash;
 };
 
-export const decodeSpatialIdTilehash = (hextilehash: string): string => {
+export const decodeHexSpatialIdTilehash = (hexTilehash: string): string => {
   // TODO: Implement the decoding logic for spatial id hex tilehash
-  return hextilehash;
+  return hexTilehash;
 };
