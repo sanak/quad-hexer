@@ -196,10 +196,10 @@ const drawCodeAndSiblingPolygons = () => {
       {
         const s2cell = S2.S2Cell.FromHilbertQuadKey(codeValue);
         const corners = s2cell.getCornerLatLngs();
-        coordinates.push(
-          ...corners.map((latLng) => [latLng.lng, latLng.lat]),
-          [corners[0].lng, corners[0].lat]
-        );
+        coordinates.push(...corners.map((latLng) => [latLng.lng, latLng.lat]), [
+          corners[0].lng,
+          corners[0].lat
+        ]);
         if (hasSiblings) {
           for (let i = 0; i < quadkeyChars.length; i++) {
             const siblingCode = codeValue.slice(0, -1) + quadkeyChars[i];
