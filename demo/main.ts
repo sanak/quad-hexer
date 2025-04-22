@@ -232,10 +232,17 @@ const drawCodeAndSiblingPolygons = () => {
       {
         const s2cell = S2.S2Cell.FromHilbertQuadKey(codeValue);
         const corners = s2cell.getCornerLatLngs();
-        coordinates.push(...corners.map((latLng) => [latLng.lng, latLng.lat]), [
-          corners[0].lng,
-          corners[0].lat
-        ]);
+        let firstLngSign = corners[0].lng > 0.0 ? 1.0 : -1.0;
+        coordinates.push(
+          ...corners.map((latLng) => {
+            const currentLngSign = latLng.lng > 0.0 ? 1.0 : -1.0;
+            if (currentLngSign !== firstLngSign) {
+              latLng.lng += 360.0 * firstLngSign;
+            }
+            return [latLng.lng, latLng.lat];
+          }),
+          [corners[0].lng, corners[0].lat]
+        );
         if (hasSiblings) {
           for (let i = 0; i < quadkeyChars.length; i++) {
             const siblingCode = codeValue.slice(0, -1) + quadkeyChars[i];
@@ -244,8 +251,15 @@ const drawCodeAndSiblingPolygons = () => {
             }
             const siblingS2cell = S2.S2Cell.FromHilbertQuadKey(siblingCode);
             const siblingCorners = siblingS2cell.getCornerLatLngs();
+            firstLngSign = siblingCorners[0].lng > 0.0 ? 1.0 : -1.0;
             siblingCoordinatesArray.push([
-              ...siblingCorners.map((latLng) => [latLng.lng, latLng.lat]),
+              ...siblingCorners.map((latLng) => {
+                const currentLngSign = latLng.lng > 0.0 ? 1.0 : -1.0;
+                if (currentLngSign !== firstLngSign) {
+                  latLng.lng += 360.0 * firstLngSign;
+                }
+                return [latLng.lng, latLng.lat];
+              }),
               [siblingCorners[0].lng, siblingCorners[0].lat]
             ]);
           }
