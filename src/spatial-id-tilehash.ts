@@ -75,3 +75,11 @@ export const decodeHexSpatialIdTilehash = (hexSpatialIdTilehash: string): string
   tilehashStringArray.push(incrementedOctalString);
   return tilehashStringArray.join('');
 };
+
+// export const encodeSpatialIdHilbertTilehash = (spatialIdHilbertTilehash: string): string => {
+//   return `not implemented: ${spatialIdHilbertTilehash}`;
+// };
+
+// export const decodeHexSpatialIdHilbertTilehash = (hexSpatialIdHilbertTilehash: string): string => {
+//   return `not implemented: ${hexSpatialIdHilbertTilehash}`;
+// };
