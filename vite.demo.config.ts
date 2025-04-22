@@ -7,9 +7,6 @@ export default defineConfig({
   server: {
     open: true
   },
-  build: {
-    outDir: '../dist-demo'
-  },
   preview: {
     open: true
   }
