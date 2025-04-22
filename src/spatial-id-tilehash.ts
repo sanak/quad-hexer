@@ -33,7 +33,7 @@ export const encodeSpatialIdTilehash = (spatialIdTilehash: string): string => {
   hexStringArray.push(encodeQuadkey(quadkey));
   if (floorNumber !== 0) {
     hexStringArray.push(isNegative ? '-' : '+');
-    hexStringArray.push(floorNumber.toString(10));
+    hexStringArray.push(floorNumber.toString(16));
   }
   return hexStringArray.join('');
 };
@@ -42,7 +42,7 @@ export const decodeHexSpatialIdTilehash = (hexSpatialIdTilehash: string): string
   if (!hexSpatialIdTilehash || typeof hexSpatialIdTilehash !== 'string') {
     throw new Error('Invalid hex Spatial ID Tilehash type: ' + typeof hexSpatialIdTilehash);
   }
-  const hexSpatialIdTilehashPattern = /^(x[0-9a-f]{0,15}(?:#[0-3])?)(?:([+-]\d+))?$/;
+  const hexSpatialIdTilehashPattern = /^(x[0-9a-f]{0,15}(?:#[0-3])?)(?:([+-][0-9a-f]+))?$/;
   if (!hexSpatialIdTilehashPattern.test(hexSpatialIdTilehash)) {
     throw new Error('Invalid hex Spatial ID Tilehash format: ' + hexSpatialIdTilehash);
   }
@@ -51,7 +51,7 @@ export const decodeHexSpatialIdTilehash = (hexSpatialIdTilehash: string): string
     throw new Error('Invalid hex Spatial ID Tilehash format: ' + hexSpatialIdTilehash);
   }
   const quadString = decodeHexQuadkey(matches[1]);
-  const floorNumber = matches[2] ? parseInt(matches[2], 10) : 0;
+  const floorNumber = matches[2] ? parseInt(matches[2], 16) : 0;
   const quadDigits = quadString.length;
   const fBinaryString = Math.abs(floorNumber).toString(2).padStart(quadDigits, '0');
   const binaryStringArray = [];
