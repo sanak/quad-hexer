@@ -39,13 +39,20 @@ body,
   padding: 0;
   margin: 0 0 10px;
 }
-.map-overlay-inner fieldset:last-child {
+.map-overlay-inner > fieldset:last-child {
   margin: 0;
 }
 .map-overlay-inner fieldset.inline {
   display: inline;
 }
+.map-overlay-inner fieldset input {
+  font-family: monospace;
+}
 .map-overlay-inner fieldset input[type='text'] {
   width: 100%;
   box-sizing: border-box;
+}
+.map-overlay-inner fieldset input[type='number'] {
+  width: 100px;
+  text-align: right;
 }

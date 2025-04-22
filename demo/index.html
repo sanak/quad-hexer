@@ -11,7 +11,7 @@
     <div class="map-center-marker">+</div>
     <div class="map-overlay top">
       <div class="map-overlay-inner">
-        <fieldset class="inner">
+        <fieldset class="inline">
           <label for="type">Type:</label>
           <select id="type">
             <option value="quadkey">Quadkey</option>
@@ -20,10 +20,21 @@
             <!-- <option value="spatial-id-hilbert-tilehash">Spatial ID Hilbert Tilehash</option> -->
           </select>
         </fieldset>
-        <fieldset class="inner">
+        <fieldset class="inline">
           <label for="level">Level:</label>
           <select id="level"></select>
         </fieldset>
+        <div id="spatial-id-additional-fields" style="display: none">
+          <fieldset class="inline">
+            <label for="altitude">Altitude:</label>
+            <input type="number" id="spatial-id-altitude" value="0" />
+            <span>m</span>
+          </fieldset>
+          <fieldset>
+            <label for="spatial-id-zfxy-value">ZFXY value:</label>
+            <input type="text" id="spatial-id-zfxy-value" readonly />
+          </fieldset>
+        </div>
         <fieldset>
           <label for="code-value">Code value:</label>
           <input type="text" id="code-value" readonly />

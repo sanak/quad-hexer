@@ -108,6 +108,9 @@ const codeValueInput = document.querySelector<HTMLInputElement>('input#code-valu
 const encodedValueInput = document.querySelector<HTMLInputElement>('input#encoded-value')!;
 const decodedValueInput = document.querySelector<HTMLInputElement>('input#decoded-value')!;
 const centerCoordsInput = document.querySelector<HTMLInputElement>('input#center-coords')!;
+const spatialIdAltitudeInput = document.querySelector<HTMLInputElement>(
+  'input#spatial-id-altitude'
+)!;
 
 const updateLevelOption = () => {
   const type = typeSelect.value;
@@ -121,6 +124,16 @@ const updateLevelOption = () => {
     levelSelect.appendChild(option);
   }
   levelSelect.value = selectedLevelOptions.default;
+};
+
+const toggleSpatialIdAdditionalFields = () => {
+  const type = typeSelect.value;
+  const spatialIdAdditionalFieldsContainer = document.querySelector<HTMLDivElement>(
+    '#spatial-id-additional-fields'
+  )!;
+  spatialIdAdditionalFieldsContainer.style.display = type.startsWith('spatial-id')
+    ? 'block'
+    : 'none';
 };
 
 const updateCenterCoords = (lat, lng) => {
@@ -145,17 +158,25 @@ const updateCodeValue = (lat, lng) => {
       decodedValue = quadHexer.decodeHexS2HilbertQuadkey(encodedValue);
       break;
     case 'spatial-id-tilehash':
-      codeValue = new Space({ lng: lng, lat: lat }, level).tilehash;
-      encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
-      decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
-      break;
-    /*
     case 'spatial-id-hilbert-tilehash':
-      codeValue = new Space({ lng: lng, lat: lat }, level).hilbertTilehash;
-      encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
-      decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
+      {
+        const altitude = parseFloat(spatialIdAltitudeInput.value);
+        const zfxyValueInput = document.querySelector<HTMLInputElement>(
+          'input#spatial-id-zfxy-value'
+        )!;
+        const space = new Space({ lng: lng, lat: lat, alt: altitude }, level);
+        zfxyValueInput.value = space.zfxyStr.slice(1);
+        if (type === 'spatial-id-tilehash') {
+          codeValue = space.tilehash;
+          encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
+          decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
+        } else {
+          codeValue = new Space({ lng: lng, lat: lat }, level).hilbertTilehash;
+          // encodedValue = quadHexer.encodeSpatialIdHilbertTilehash(codeValue);
+          // decodedValue = quadHexer.decodeHexSpatialIdHilbertTilehash(encodedValue);
+        }
+      }
       break;
-    */
   }
   codeValueInput.value = codeValue;
   encodedValueInput.value = encodedValue;
@@ -275,11 +296,19 @@ const drawCodeAndSiblingPolygons = () => {
 // Set event handlers
 typeSelect.addEventListener('change', () => {
   updateLevelOption();
+  toggleSpatialIdAdditionalFields();
   const center = map.getCenter();
   updateCodeValue(center.lat, center.lng);
   drawCodeAndSiblingPolygons();
 });
+
 levelSelect.addEventListener('change', () => {
+  const center = map.getCenter();
+  updateCodeValue(center.lat, center.lng);
+  drawCodeAndSiblingPolygons();
+});
+
+spatialIdAltitudeInput.addEventListener('change', () => {
   const center = map.getCenter();
   updateCodeValue(center.lat, center.lng);
   drawCodeAndSiblingPolygons();
