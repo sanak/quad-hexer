@@ -22,7 +22,8 @@ const map = new maplibregl.Map({
   minZoom: 0,
   maxZoom: 21,
   dragRotate: false,
-  attributionControl: false
+  attributionControl: false,
+  hash: true
 });
 
 map.addControl(
