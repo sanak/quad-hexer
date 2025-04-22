@@ -111,6 +111,8 @@ const centerCoordsInput = document.querySelector<HTMLInputElement>('input#center
 const spatialIdAltitudeInput = document.querySelector<HTMLInputElement>(
   'input#spatial-id-altitude'
 )!;
+spatialIdAltitudeInput.min = (-(Math.pow(2, 25) - 1)).toString();
+spatialIdAltitudeInput.max = (Math.pow(2, 25) - 1).toString();
 
 const updateLevelOption = () => {
   const type = typeSelect.value;
@@ -164,16 +166,20 @@ const updateCodeValue = (lat, lng) => {
         const zfxyValueInput = document.querySelector<HTMLInputElement>(
           'input#spatial-id-zfxy-value'
         )!;
-        const space = new Space({ lng: lng, lat: lat, alt: altitude }, level);
-        zfxyValueInput.value = space.zfxyStr.slice(1);
-        if (type === 'spatial-id-tilehash') {
-          codeValue = space.tilehash;
-          encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
-          decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
-        } else {
-          codeValue = new Space({ lng: lng, lat: lat }, level).hilbertTilehash;
-          // encodedValue = quadHexer.encodeSpatialIdHilbertTilehash(codeValue);
-          // decodedValue = quadHexer.decodeHexSpatialIdHilbertTilehash(encodedValue);
+        try {
+          const space = new Space({ lng: lng, lat: lat, alt: altitude }, level);
+          zfxyValueInput.value = space.zfxyStr.slice(1);
+          if (type === 'spatial-id-tilehash') {
+            codeValue = space.tilehash;
+            encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
+            decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
+          } else {
+            codeValue = new Space({ lng: lng, lat: lat }, level).hilbertTilehash;
+            // encodedValue = quadHexer.encodeSpatialIdHilbertTilehash(codeValue);
+            // decodedValue = quadHexer.decodeHexSpatialIdHilbertTilehash(encodedValue);
+          }
+        } catch (e) {
+          alert(e);
         }
       }
       break;

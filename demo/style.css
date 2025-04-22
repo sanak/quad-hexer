@@ -53,6 +53,6 @@ body,
   box-sizing: border-box;
 }
 .map-overlay-inner fieldset input[type='number'] {
-  width: 100px;
+  width: 80px;
   text-align: right;
 }
