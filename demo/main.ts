@@ -11,7 +11,6 @@ const levelOptions = {
   quadkey: { min: 1, max: 30, default: 23 },
   's2-hilbert-quadkey': { min: 1, max: 30, default: 21 },
   'spatial-id-tilehash': { min: 1, max: 30, default: 23 }
-  // 'spatial-id-hilbert-tilehash': { min: 1, max: 30, default: 23 }
 };
 
 const map = new maplibregl.Map({
@@ -161,7 +160,6 @@ const updateCodeValue = (lat, lng) => {
       decodedValue = quadHexer.decodeHexS2HilbertQuadkey(encodedValue);
       break;
     case 'spatial-id-tilehash':
-    case 'spatial-id-hilbert-tilehash':
       {
         const altitude = parseFloat(spatialIdAltitudeInput.value);
         const zfxyValueInput = document.querySelector<HTMLInputElement>(
@@ -170,15 +168,9 @@ const updateCodeValue = (lat, lng) => {
         try {
           const space = new Space({ lng: lng, lat: lat, alt: altitude }, level);
           zfxyValueInput.value = space.zfxyStr.slice(1);
-          if (type === 'spatial-id-tilehash') {
-            codeValue = space.tilehash;
-            encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
-            decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
-          } else {
-            codeValue = new Space({ lng: lng, lat: lat }, level).hilbertTilehash;
-            // encodedValue = quadHexer.encodeSpatialIdHilbertTilehash(codeValue);
-            // decodedValue = quadHexer.decodeHexSpatialIdHilbertTilehash(encodedValue);
-          }
+          codeValue = space.tilehash;
+          encodedValue = quadHexer.encodeSpatialIdTilehash(codeValue);
+          decodedValue = quadHexer.decodeHexSpatialIdTilehash(encodedValue);
         } catch (e) {
           alert(e);
         }
@@ -267,7 +259,6 @@ const drawCodeAndSiblingPolygons = () => {
       }
       break;
     case 'spatial-id-tilehash':
-      // case 'spatial-id-hilbert-tilehash':
       {
         const geoJsonCoords = new Space(codeValue).toGeoJSON().coordinates.flat();
         coordinates.push(...geoJsonCoords);

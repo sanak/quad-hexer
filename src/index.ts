@@ -1,11 +1,6 @@
 import { encodeQuadkey, decodeHexQuadkey } from './quadkey';
 import { encodeS2HilbertQuadkey, decodeHexS2HilbertQuadkey } from './s2-hilbert-quadkey';
-import {
-  encodeSpatialIdTilehash,
-  decodeHexSpatialIdTilehash
-  // encodeSpatialIdHilbertTilehash,
-  // decodeHexSpatialIdHilbertTilehash
-} from './spatial-id-tilehash';
+import { encodeSpatialIdTilehash, decodeHexSpatialIdTilehash } from './spatial-id-tilehash';
 
 export const quadHexer = {
   encodeQuadkey: encodeQuadkey,
@@ -14,6 +9,4 @@ export const quadHexer = {
   decodeHexS2HilbertQuadkey: decodeHexS2HilbertQuadkey,
   encodeSpatialIdTilehash: encodeSpatialIdTilehash,
   decodeHexSpatialIdTilehash: decodeHexSpatialIdTilehash
-  // encodeSpatialIdHilbertTilehash: encodeSpatialIdHilbertTilehash,
-  // decodeHexSpatialIdHilbertTilehash: decodeHexSpatialIdHilbertTilehash
 };
