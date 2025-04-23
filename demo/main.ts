@@ -32,6 +32,8 @@ map.addControl(
   'top-right'
 );
 
+map.addControl(new maplibregl.GlobeControl());
+
 map.addControl(
   new maplibregl.ScaleControl({
     maxWidth: 200,
