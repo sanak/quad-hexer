@@ -8,7 +8,7 @@ import './style.css';
 import { quadHexer } from '../src/index';
 
 const levelOptions = {
-  quadkey: { min: 1, max: 30, default: 23 },
+  quadkey: { min: 1, max: 32, default: 23 },
   's2-hilbert-quadkey': { min: 1, max: 30, default: 21 },
   'spatial-id-tilehash': { min: 1, max: 30, default: 23 }
 };

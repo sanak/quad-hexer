@@ -33,6 +33,7 @@
     "dev": "vite --config vite.demo.config.ts",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
+    "test": "vitest",
     "build": "vite build && tsc",
     "build:demo": "vite build --config vite.demo.config.ts",
     "preview": "vite preview --config vite.demo.config.ts"

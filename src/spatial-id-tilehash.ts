@@ -1,12 +1,12 @@
 import { encodeQuadkey, decodeHexQuadkey } from './quadkey';
 
 export const encodeSpatialIdTilehash = (spatialIdTilehash: string): string => {
-  if (!spatialIdTilehash || typeof spatialIdTilehash !== 'string') {
-    throw new Error('Invalid Spatial ID Tilehash type: ' + typeof spatialIdTilehash);
+  if (typeof spatialIdTilehash !== 'string') {
+    throw new Error('Invalid spatial id tilehash type: ' + typeof spatialIdTilehash);
   }
   const spatialIdTilehashPattern = /^(-?)([1-8]{1,30})$/;
   if (!spatialIdTilehashPattern.test(spatialIdTilehash)) {
-    throw new Error('Invalid Spatial ID Tilehash format: ' + spatialIdTilehash);
+    throw new Error('Invalid spatial id tilehash format: ' + spatialIdTilehash);
   }
   const matches = spatialIdTilehash.match(spatialIdTilehashPattern)!;
   const isNegative = matches[1] === '-';
@@ -39,16 +39,16 @@ export const encodeSpatialIdTilehash = (spatialIdTilehash: string): string => {
 };
 
 export const decodeHexSpatialIdTilehash = (hexSpatialIdTilehash: string): string => {
-  if (!hexSpatialIdTilehash || typeof hexSpatialIdTilehash !== 'string') {
-    throw new Error('Invalid hex Spatial ID Tilehash type: ' + typeof hexSpatialIdTilehash);
+  if (typeof hexSpatialIdTilehash !== 'string') {
+    throw new Error('Invalid hex spatial id tilehash type: ' + typeof hexSpatialIdTilehash);
   }
   const hexSpatialIdTilehashPattern = /^(x[0-9a-f]{0,15}(?:#[0-3])?)(?:([+-][0-9a-f]+))?$/;
   if (!hexSpatialIdTilehashPattern.test(hexSpatialIdTilehash)) {
-    throw new Error('Invalid hex Spatial ID Tilehash format: ' + hexSpatialIdTilehash);
+    throw new Error('Invalid hex spatial id tilehash format: ' + hexSpatialIdTilehash);
   }
   const matches = hexSpatialIdTilehash.match(hexSpatialIdTilehashPattern)!;
   if (!matches[1]) {
-    throw new Error('Invalid hex Spatial ID Tilehash format: ' + hexSpatialIdTilehash);
+    throw new Error('Invalid hex spatial id tilehash format: ' + hexSpatialIdTilehash);
   }
   const quadString = decodeHexQuadkey(matches[1]);
   const floorNumber = matches[2] ? parseInt(matches[2], 16) : 0;

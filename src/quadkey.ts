@@ -1,8 +1,8 @@
 export const encodeQuadkey = (quadkey: string): string => {
-  if (!quadkey || typeof quadkey !== 'string') {
+  if (typeof quadkey !== 'string') {
     throw new Error('Invalid quadkey type: ' + typeof quadkey);
   }
-  const quadkeyPattern = /^[0-3]{1,30}$/;
+  const quadkeyPattern = /^[0-3]{1,32}$/;
   if (!quadkeyPattern.test(quadkey)) {
     throw new Error('Invalid quadkey format: ' + quadkey);
   }
@@ -35,15 +35,15 @@ export const encodeQuadkey = (quadkey: string): string => {
 
 export const decodeHexQuadkey = (hexQuadkey: string): string => {
   if (!hexQuadkey || typeof hexQuadkey !== 'string') {
-    throw new Error('Invalid hex Quadkey type: ' + typeof hexQuadkey);
+    throw new Error('Invalid hex quadkey type: ' + typeof hexQuadkey);
   }
-  const hexQuadkeyPattern = /^x([0-9a-f]{0,15})(?:#([0-3]))?$/;
+  const hexQuadkeyPattern = /^x([0-9a-f]{0,16})(?:#([0-3]))?$/;
   if (!hexQuadkeyPattern.test(hexQuadkey)) {
-    throw new Error('Invalid hex Quadkey format: ' + hexQuadkey);
+    throw new Error('Invalid hex quadkey format: ' + hexQuadkey);
   }
   const matches = hexQuadkey.match(hexQuadkeyPattern)!;
   if (!matches[1] && !matches[2]) {
-    throw new Error('Invalid hex Quadkey format: ' + hexQuadkey);
+    throw new Error('Invalid hex quadkey format: ' + hexQuadkey);
   }
   const quadStringArray = [];
   if (matches[1]) {
