@@ -1,10 +1,11 @@
 {
   "name": "quad-hexer",
-  "private": true,
   "version": "0.1.0",
   "description": "A library for converting between quad and hex representations of geocodes.",
   "keywords": [
     "quadkey",
+    "s2",
+    "s2geometry",
     "spatial-id",
     "geocode",
     "encode",
