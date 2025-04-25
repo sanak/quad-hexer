@@ -50,7 +50,20 @@ export const decodeHexSpatialIdTilehash = (hexSpatialIdTilehash: string): string
   if (!matches[1]) {
     throw new Error('Invalid hex spatial id tilehash format: ' + hexSpatialIdTilehash);
   }
-  const quadString = decodeHexQuadkey(matches[1]);
+  let quadString;
+  try {
+    quadString = decodeHexQuadkey(matches[1]);
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message &&
+      error.message.includes('Invalid hex quadkey format')
+    ) {
+      throw new Error('Invalid hex spatial id tilehash format: ' + hexSpatialIdTilehash);
+    } else {
+      throw error;
+    }
+  }
   const floorNumber = matches[2] ? parseInt(matches[2], 16) : 0;
   const quadDigits = quadString.length;
   const fBinaryString = Math.abs(floorNumber).toString(2).padStart(quadDigits, '0');
