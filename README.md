@@ -45,36 +45,36 @@ npm install quad-hexer
 ### Quadkey
 
 ```ts
-import { encodeQuadkey, decodeQuadkey } from 'quad-hexer';
+import { quadHexer } from 'quad-hexer';
 
-const hexQuadkey = encodeQuadkey('13300211231200101110210');
+const hexQuadkey = quadHexer.encodeQuadkey('13300211231200101110210');
 console.log(hexQuadkey);
 // => x7c25b604549#0
-console.log(decodeQuadkey(hexQuadkey));
+console.log(quadHexer.decodeHexQuadkey(hexQuadkey));
 // => 13300211231200101110210
 ```
 
 ### S2 Hilbert Quadkey
 
 ```ts
-import { encodeS2HilbertQuadkey, decodeS2HilbertQuadkey } from 'quad-hexer';
+import { quadHexer } from 'quad-hexer';
 
-const hexS2HilbertQuadkey = encodeS2HilbertQuadkey('3/000030101133133301211');
+const hexS2HilbertQuadkey = quadHexer.encodeS2HilbertQuadkey('3/000030101133133301211');
 console.log(hexS2HilbertQuadkey);
 // => 3x00c45f7f19#1
-console.log(decodeS2HilbertQuadkey(hexS2HilbertQuadkey));
+console.log(quadHexer.decodeHexS2HilbertQuadkey(hexS2HilbertQuadkey));
 // => 3/000030101133133301211
 ```
 
 ### 空間ID タイルハッシュ Z曲線
 
 ```ts
-import { encodeSpatialIdTileHash, decodeSpatialIdTileHash } from 'quad-hexer';
+import { quadHexer } from 'quad-hexer';
 
-const hexSpatialIdTileHash = encodeSpatialIdTileHash('24411322342311212221321');
+const hexSpatialIdTileHash = quadHexer.encodeSpatialIdTilehash('24411322342311212221321');
 console.log(hexSpatialIdTileHash);
 // => x7c25b604549#0
-console.log(decodeSpatialIdTileHash(hexSpatialIdTileHash));
+console.log(quadHexer.decodeHexSpatialIdTilehash(hexSpatialIdTileHash));
 // => 24411322342311212221321
 ```
 
