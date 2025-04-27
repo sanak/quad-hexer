@@ -12,6 +12,7 @@ dist
 demo/dist
 *.local
 *.tgz
+coverage
 
 # Editor directories and files
 .vscode/*

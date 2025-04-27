@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 const extensions = {
   es: 'mjs',
@@ -15,6 +15,12 @@ export default defineConfig({
       name: 'quadHexer',
       fileName: (format: string) => `quad-hexer.${extensions[format]}`,
       formats: ['es', 'cjs', 'umd']
+    }
+  },
+  test: {
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.ts']
     }
   }
 });
