@@ -8,7 +8,7 @@
 2. Move to this folder and run:
     ```sh
     pnpm install
-    # pnpm dlx playwright install
+    # pnpm exec playwright install
     pnpm test
     ```
 
