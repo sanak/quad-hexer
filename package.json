@@ -1,6 +1,6 @@
 {
   "name": "quad-hexer",
-  "version": "0.2.0-alpha.0",
+  "version": "0.2.0",
   "description": "A library for converting between quad and hex representations of geocodes.",
   "keywords": [
     "quadkey",
@@ -42,7 +42,8 @@
     "coverage": "vitest run --coverage",
     "build": "vite build && tsc",
     "build:demo": "vite build --config vite.demo.config.ts",
-    "preview": "vite preview --config vite.demo.config.ts"
+    "preview": "vite preview --config vite.demo.config.ts",
+    "prepare": "pnpm build"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",
