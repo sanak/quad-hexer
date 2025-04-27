@@ -20,7 +20,12 @@ export default defineConfig({
   test: {
     coverage: {
       provider: 'v8',
-      include: ['src/**/*.ts']
+      include: ['src/**/*.ts'],
+      thresholds: {
+        perFile: true,
+        functions: 100,
+        lines: -2
+      }
     }
   }
 });

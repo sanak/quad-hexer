@@ -1,6 +1,7 @@
 node_modules
 dist
 demo/dist
+coverage
 
 package.json
 pnpm-lock.yaml

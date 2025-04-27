@@ -81,6 +81,9 @@ describe('decodeHexSpatialIdTilehash', () => {
     expect(() => decodeHexSpatialIdTilehash('x')).toThrow(
       'Invalid hex spatial id tilehash format: x'
     );
+    expect(() => decodeHexSpatialIdTilehash('x+1')).toThrow(
+      'Invalid hex spatial id tilehash format: x+1'
+    );
     expect(() => decodeHexSpatialIdTilehash('y1b')).toThrow(
       'Invalid hex spatial id tilehash format: y1b'
     );

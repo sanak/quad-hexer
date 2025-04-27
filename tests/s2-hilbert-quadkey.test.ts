@@ -25,6 +25,8 @@ describe('encodeS2HilbertQuadkey', () => {
   });
 
   it('should throw an error for invalid S2 hilbert quadkey format', () => {
+    expect(() => encodeS2HilbertQuadkey('3')).toThrow('Invalid S2 hilbert quadkey format: 3');
+    expect(() => encodeS2HilbertQuadkey('/')).toThrow('Invalid S2 hilbert quadkey format: /');
     expect(() => encodeS2HilbertQuadkey('4/')).toThrow('Invalid S2 hilbert quadkey format: 4/');
     expect(() => encodeS2HilbertQuadkey('4/abcd')).toThrow(
       'Invalid S2 hilbert quadkey format: 4/abcd'

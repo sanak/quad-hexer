@@ -9,9 +9,6 @@ export const encodeS2HilbertQuadkey = (s2HilbertQuadkey: string): string => {
     throw new Error('Invalid S2 hilbert quadkey format: ' + s2HilbertQuadkey);
   }
   const matches = s2HilbertQuadkey.match(s2HilbertQuadkeyPattern)!;
-  if (!matches[1] || !matches[2]) {
-    throw new Error('Invalid S2 hilbert quadkey format: ' + s2HilbertQuadkey);
-  }
   const hexStringArray = [];
   hexStringArray.push(matches[1]);
   hexStringArray.push(encodeQuadkey(matches[2]));
@@ -27,9 +24,6 @@ export const decodeHexS2HilbertQuadkey = (hexS2HilbertQuadkey: string): string =
     throw new Error('Invalid hex S2 hilbert quadkey format: ' + hexS2HilbertQuadkey);
   }
   const matches = hexS2HilbertQuadkey.match(hexS2HilbertQuadkeyPattern)!;
-  if (!matches[1] || !matches[2]) {
-    throw new Error('Invalid hex S2 hilbert quadkey format: ' + hexS2HilbertQuadkey);
-  }
   const quadStringArray = [];
   quadStringArray.push(matches[1]);
   quadStringArray.push('/');

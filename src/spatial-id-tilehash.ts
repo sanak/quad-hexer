@@ -47,9 +47,6 @@ export const decodeHexSpatialIdTilehash = (hexSpatialIdTilehash: string): string
     throw new Error('Invalid hex spatial id tilehash format: ' + hexSpatialIdTilehash);
   }
   const matches = hexSpatialIdTilehash.match(hexSpatialIdTilehashPattern)!;
-  if (!matches[1]) {
-    throw new Error('Invalid hex spatial id tilehash format: ' + hexSpatialIdTilehash);
-  }
   let quadString;
   try {
     quadString = decodeHexQuadkey(matches[1]);
