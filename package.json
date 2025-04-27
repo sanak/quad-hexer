@@ -1,6 +1,6 @@
 {
   "name": "quad-hexer",
-  "version": "0.1.2",
+  "version": "0.2.0-alpha.0",
   "description": "A library for converting between quad and hex representations of geocodes.",
   "keywords": [
     "quadkey",
@@ -22,16 +22,18 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/quad-hexer.cjs.js",
-  "module": "./dist/quad-hexer.es.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "dist/quad-hexer.cjs",
+  "module": "dist/quad-hexer.mjs",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/quad-hexer.es.js",
-      "require": "./dist/quad-hexer.cjs.js",
-      "default": "./dist/quad-hexer.umd.js"
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/quad-hexer.mjs",
+      "require": "./dist/quad-hexer.cjs"
     }
   },
+  "browser": "dist/quad-hexer.js",
+  "sideEffects": false,
   "scripts": {
     "dev": "vite --config vite.demo.config.ts",
     "lint": "prettier --check . && eslint .",

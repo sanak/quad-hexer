@@ -1,14 +1,19 @@
 import { defineConfig } from 'vite';
-import { resolve } from 'path';
+
+const extensions = {
+  es: 'mjs',
+  cjs: 'cjs',
+  umd: 'js'
+};
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     sourcemap: true,
     lib: {
-      entry: resolve(__dirname, 'src', 'index.ts'),
+      entry: './src/index.ts',
       name: 'quadHexer',
-      fileName: (format: string) => `quad-hexer.${format}.js`,
+      fileName: (format: string) => `quad-hexer.${extensions[format]}`,
       formats: ['es', 'cjs', 'umd']
     }
   }

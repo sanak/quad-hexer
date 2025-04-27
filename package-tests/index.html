@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quad-hexer-package-tests</title>
+    <script src="./quad-hexer.js"></script>
+    <!-- <script src="https://unpkg.com/quad-hexer@latest/dist/quad-hexer.js"></script> -->
+  </head>
+  <body>
+    <script>
+      // Quadkey
+      console.log('---- Quadkey ----');
+      const hexQuadkey = quadHexer.encodeQuadkey('13300211231200101110210');
+      console.log(hexQuadkey);
+      // => x7c25b604549#0
+      console.log(quadHexer.decodeHexQuadkey(hexQuadkey));
+      // => 13300211231200101110210
+
+      // S2 Hilbert Quadkey
+      console.log('---- S2 Hilbert Quadkey ----');
+      const hexS2HilbertQuadkey = quadHexer.encodeS2HilbertQuadkey('3/000030101133133301211');
+      console.log(hexS2HilbertQuadkey);
+      // => 3x00c45f7f19#1
+      console.log(quadHexer.decodeHexS2HilbertQuadkey(hexS2HilbertQuadkey));
+      // => 3/000030101133133301211
+
+      // Spatial ID Tilehash
+      console.log('---- Spatial ID Tilehash ----');
+      const hexSpatialIdTileHash = quadHexer.encodeSpatialIdTilehash('24411322342311212221321');
+      console.log(hexSpatialIdTileHash);
+      // => x7c25b604549#0
+      console.log(quadHexer.decodeHexSpatialIdTilehash(hexSpatialIdTileHash));
+      // => 24411322342311212221321
+    </script>
+    <h1>Check the console for results.</h1>
+  </body>
+</html>

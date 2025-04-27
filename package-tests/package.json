@@ -1,0 +1,27 @@
+{
+  "name": "quad-hexer-package-tests",
+  "private": true,
+  "version": "0.2.0-alpha.0",
+  "scripts": {
+    "test": "pnpm test:cjs && pnpm test:mjs && pnpm tsc && pnpm test:cts && pnpm test:mts",
+    "test:cjs": "node test.cjs",
+    "test:mjs": "node test.mjs",
+    "tsc": "tsc",
+    "test:cts": "tsx test.cts",
+    "test:mts": "tsx test.mts",
+    "serve": "serve . -p 3000 -S",
+    "test:html": "start-server-and-test serve http://localhost:3000 test:html:run",
+    "test:html:run": "node playwright-test.cjs"
+  },
+  "description": "",
+  "devDependencies": {
+    "playwright": "^1.52.0",
+    "serve": "^14.2.4",
+    "start-server-and-test": "^2.0.11",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "quad-hexer": "file:../quad-hexer-0.2.0-alpha.0.tgz"
+  }
+}
