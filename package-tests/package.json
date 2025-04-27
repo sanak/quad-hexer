@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.2.0-alpha.0",
   "scripts": {
-    "test": "pnpm test:cjs && pnpm test:mjs && pnpm tsc && pnpm test:cts && pnpm test:mts",
+    "test": "pnpm test:cjs && pnpm test:mjs && pnpm tsc && pnpm test:cts && pnpm test:mts && pnpm test:html",
     "test:cjs": "node test.cjs",
     "test:mjs": "node test.mjs",
     "tsc": "tsc",
