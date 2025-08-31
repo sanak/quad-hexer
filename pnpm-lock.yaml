@@ -11,9 +11,9 @@ importers:
       '@eslint/js':
         specifier: ^9.25.1
         version: 9.25.1
-      '@reearth/spatial-id-sdk':
-        specifier: ^0.0.0
-        version: 0.0.0
+      '@spatial-id/javascript-sdk':
+        specifier: github:spatial-id/javascript-sdk
+        version: https://codeload.github.com/spatial-id/javascript-sdk/tar.gz/454405264a698f496247dd2e956f47e680dbfede
       '@types/geojson':
         specifier: ^7946.0.16
         version: 7946.0.16
@@ -362,9 +362,6 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@reearth/spatial-id-sdk@0.0.0':
-    resolution: {integrity: sha512-qBe10IwTtfLZifDuKSQfuxHRB6BsVfMuEZBdFmfSbg1e8sXvAUHQlFvyp4gAf46jpY7ZIJuDH7s0BYhrzdxweA==}
-
   '@rollup/rollup-android-arm-eabi@4.40.0':
     resolution: {integrity: sha512-+Fbls/diZ0RDerhE8kyC6hjADCXA1K4yVNlH0EYfd2XjyH0UGgzaQ8MlT0pCXAThfxv3QUAczHaL+qSv1E4/Cg==}
     cpu: [arm]
@@ -464,6 +461,10 @@ packages:
     resolution: {integrity: sha512-lpPE1cLfP5oPzVjKMx10pgBmKELQnFJXHgvtHCtuJWOv8MxqdEIMNtgHgBFf7Ea2/7EuVwa9fodWUfXAlXZLZQ==}
     cpu: [x64]
     os: [win32]
+
+  '@spatial-id/javascript-sdk@https://codeload.github.com/spatial-id/javascript-sdk/tar.gz/454405264a698f496247dd2e956f47e680dbfede':
+    resolution: {tarball: https://codeload.github.com/spatial-id/javascript-sdk/tar.gz/454405264a698f496247dd2e956f47e680dbfede}
+    version: 0.0.0
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
@@ -1570,8 +1571,6 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@reearth/spatial-id-sdk@0.0.0': {}
-
   '@rollup/rollup-android-arm-eabi@4.40.0':
     optional: true
 
@@ -1631,6 +1630,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.40.0':
     optional: true
+
+  '@spatial-id/javascript-sdk@https://codeload.github.com/spatial-id/javascript-sdk/tar.gz/454405264a698f496247dd2e956f47e680dbfede': {}
 
   '@types/estree@1.0.7': {}
 

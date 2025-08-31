@@ -3,7 +3,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { Feature } from 'geojson';
 import { tileMath } from 'quadkey-tilemath';
 import { S2 } from 's2-geometry';
-import { Space } from '@reearth/spatial-id-sdk';
+import { Space } from '@spatial-id/javascript-sdk';
 import './style.css';
 import { quadHexer } from '../src/index';
 
