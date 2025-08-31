@@ -1,7 +1,7 @@
 {
   "name": "quad-hexer-package-tests",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "test": "pnpm test:cjs && pnpm test:mjs && pnpm tsc && pnpm test:cts && pnpm test:mts && pnpm test:html",
     "test:cjs": "node test.cjs",
@@ -22,6 +22,6 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "quad-hexer": "file:../quad-hexer-0.2.0.tgz"
+    "quad-hexer": "file:../quad-hexer-0.2.1.tgz"
   }
 }
